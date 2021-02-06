@@ -1,19 +1,5 @@
 <script>
 	import Navigation from './_navigation.svelte'
-    import { createAuth } from '../auth';
-    import {authInitialized} from "../store"
-
-	if(!$authInitialized) {
-		const config = {
-			domain: "tweetletter.us.auth0.com",
-			client_id: AUTH0
-    	};
-
-		const {
-			login,
-			logout,
-		} = createAuth(config);
-	}
 
 </script>
 

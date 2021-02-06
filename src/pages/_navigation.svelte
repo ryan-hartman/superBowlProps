@@ -1,9 +1,5 @@
 <script>
-	const links = [
-		['/index', 'home'],
-		['/tweets', 'tweets'],
-		['/newsletters', 'newsletters'],
-	]
+	const links = [ ]
 </script>
 
 <nav>
