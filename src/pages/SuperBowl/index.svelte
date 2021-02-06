@@ -154,7 +154,7 @@
         <Field label="Your Name" gapless>
             <Input bind:value={propSubmission["name"]}/>
         </Field>
-        <VirtualList height="50vh" items={props} let:item>
+        <VirtualList height="35vh" items={props} let:item>
             <Field label={item.bet +" Points: " + item.points}>
                 <Radio value="A" bind:group={propSubmission.propPicks[item.bet]}> {item.sideOne} </Radio>
                 <Radio value="B" bind:group={propSubmission.propPicks[item.bet]}> {item.sideTwo} </Radio>
