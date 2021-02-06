@@ -102,25 +102,31 @@
     let resultsPromise = fetchScores()
 </script>
 
+<style>
+    .tableStyle {
+        border: 1px solid rgb(255, 255, 255);
+    }
+    .thStyle, .tdStyle {
+        border-collapse: collapse;
+        border-bottom: 1px solid rgb(255,255,255);
+    }
+</style>
 
 <div>
-
-    <Button on:click={fetchScores}>Get Score</Button>
-
     <div class="results">
         <h3>Results</h3>
         {#await resultsPromise}
             Loading Scores
         {:then results} 
-            <table>
+            <table class="tableStyle">
                 <tr>
-                    <th>Name</th>
-                    <th>Points</th>
+                    <th class="thStyle">Name</th>
+                    <th class="thStyle">Points</th>
                 </tr>
                 {#each results as result}
                     <tr>
-                        <td>{result.Name}</td>
-                        <td>{result.points}</td>
+                        <td class="tdStyle">{result.Name}</td>
+                        <td class="tdStyle">{result.points}</td>
                     </tr>
                 {/each}
             </table>
@@ -168,5 +174,4 @@
         </Field>
         <Button on:click={submitProps}>Submit</Button>
     </Modal>
-    
 </div>
