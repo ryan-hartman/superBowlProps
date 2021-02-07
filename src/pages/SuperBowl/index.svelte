@@ -16,6 +16,13 @@
         tb2: 0
     }
 
+    const fetchScores = async () => {
+        return await fetch("https://tweetletter.azurewebsites.net/api/GetPropResults")
+        .then(r => r.json())
+    };
+
+    let resultsPromise = fetchScores()
+
     let submitProps = () => {
         fetch(
             "https://tweetletter.azurewebsites.net/api/SubmitPropPicks",
@@ -29,16 +36,12 @@
         ).then(resp => {
             console.log(resp)
             modalOpen = false;
+            new Promise(resolve => setTimeout(resolve, 150));
+            resultsPromise = fetchScores()
             // dispatch("addnewsletter")
         })
     }
 
-    const fetchScores = async () => {
-        return await fetch("https://tweetletter.azurewebsites.net/api/GetPropResults")
-        .then(r => r.json())
-    };
-
-    let resultsPromise = fetchScores()
 </script>
 
 <style>
