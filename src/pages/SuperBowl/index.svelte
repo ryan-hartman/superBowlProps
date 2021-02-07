@@ -41,7 +41,7 @@
     let submitProps = () => {
 
         if(!isValid(propSubmission)) {
-            alert("Please make sure everything is filled out")
+            alert("Please make sure everything is filled out. Scroll down on the questions to see more.")
             return;
         }
 
