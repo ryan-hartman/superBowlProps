@@ -107,19 +107,19 @@
     <br>
     <Details>
         <span slot="summary">Props</span>
-        <table>
+        <table class="tableStyle">
             <tr>
-                <th>Prop</th>
-                <th>Side One</th>
-                <th>Side Two</th>
-                <th>Points</th>
+                <th class="thStyle">Prop</th>
+                <th class="thStyle">Side One</th>
+                <th class="thStyle">Side Two</th>
+                <th class="thStyle">Points</th>
             </tr>
             {#each props as prop}
             <tr>
-                <td>{prop.bet}</td>
-                <td>{prop.sideOne}</td>
-                <td>{prop.sideTwo}</td>
-                <td>{prop.points}</td>
+                <td class="tdStyle">{prop.bet}</td>
+                <td class="tdStyle">{prop.sideOne}</td>
+                <td class="tdStyle">{prop.sideTwo}</td>
+                <td class="tdStyle">{prop.points}</td>
             </tr>
             {/each}
         </table>

@@ -5,7 +5,7 @@
 
 <style>
 	.containerStyle {
-		max-width:850px;
+		max-width:75vw;
 		margin: auto;
 		margin-top: 2%;
 		padding-left: 2%;
