@@ -23,7 +23,28 @@
 
     let resultsPromise = fetchScores()
 
+    let isValid = (submission) => {
+
+        let valid = true;
+
+        Object.keys(submission.propPicks).forEach(element => {
+            valid = valid && (submission.propPicks[element] != "")
+        });
+
+        return valid 
+        &&(submission.name!="")
+        &&(submission.tb1!=0)
+        &&(submission.tb2!=0)
+        &&(Object.keys(submission.propPicks).length == props.length)
+    }
+
     let submitProps = () => {
+
+        if(!isValid(propSubmission)) {
+            alert("Please make sure everything is filled out")
+            return;
+        }
+
         fetch(
             "https://tweetletter.azurewebsites.net/api/SubmitPropPicks",
             {
@@ -108,7 +129,7 @@
 
     <Modal bind:open={modalOpen} style="width:60%;background-color: #243447;padding:15px">
         <Field label="Your Name" gapless>
-            <Input bind:value={propSubmission["name"]}/>
+            <Input required bind:value={propSubmission["name"]}/>
         </Field>
         <VirtualList height="35vh" items={props} let:item>
             <Field label={item.bet +" Points: " + item.points}>
@@ -117,11 +138,11 @@
             </Field>
         </VirtualList>
         <Field label="Tie Break 1: Total Points Scored">
-            <Input bind:value={propSubmission["tb1"]}/>
+            <Input required bind:value={propSubmission["tb1"]}/>
         </Field>
         <Field label="Tie Break 2: Total Cobined Yards">
             <Input bind:value={propSubmission["tb2"]}/>
         </Field>
-        <Button on:click={submitProps}>Submit</Button>
+        <Button error on:click={submitProps}>Submit</Button>
     </Modal>
 </div>
