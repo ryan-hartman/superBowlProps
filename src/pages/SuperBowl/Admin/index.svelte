@@ -7,8 +7,8 @@
         {
             bet: "Length of the National Anthem",
             points: 3,
-            sideOne: "Over 203.5",
-            sideTwo: "Under 203.5"
+            sideOne: "Over 203.5 Seconds",
+            sideTwo: "Under 203.5 Seconds"
         },
         {
             bet: "Will the coin toss be heads or tails?",
