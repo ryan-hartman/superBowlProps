@@ -125,7 +125,7 @@
         </table>
     </Details>
 
-    <Button on:click={event => modalOpen = true}>Submit Picks</Button>
+    <Button on:click={event => modalOpen = true}>Add Your Picks</Button>
 
     <Modal bind:open={modalOpen} style="width:60%;background-color: #243447;padding:15px">
         <Field label="Your Name" gapless>
