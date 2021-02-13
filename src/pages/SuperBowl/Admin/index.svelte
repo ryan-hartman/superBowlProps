@@ -28,7 +28,7 @@
         });
         
         fetch(
-            "https://tweetletter.azurewebsites.net/api/UpdatePropResults",
+            "https://ryan-hartman.azurewebsites.net/api/SuperBowl/UpdatePropResults",
             {
                 method: 'POST',
                 headers: {

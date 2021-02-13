@@ -17,7 +17,7 @@
     }
 
     const fetchScores = async () => {
-        return await fetch("https://tweetletter.azurewebsites.net/api/GetPropResults")
+        return await fetch("https://ryan-hartman.azurewebsites.net/api/SuperBowl/GetPropResults")
         .then(r => r.json())
     };
 
@@ -46,7 +46,7 @@
         }
 
         fetch(
-            "https://tweetletter.azurewebsites.net/api/SubmitPropPicks",
+            "https://ryan-hartman.azurewebsites.net/api/SuperBowl/SubmitPropPicks",
             {
                 method: 'POST',
                 headers: {

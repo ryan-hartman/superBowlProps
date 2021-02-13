@@ -17,7 +17,7 @@
 
     let getPicks = async () => {
         return fetch(
-            "https://tweetletter.azurewebsites.net/api/GetPropPicks?name="+encodeURIComponent(name)
+            "https://ryan-hartman.azurewebsites.net/api/SuperBowl/GetPropPicks?name="+encodeURIComponent(name)
             )
         .then(result => result.json())
         .then(data => propSubmission=data)
