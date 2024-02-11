@@ -51,51 +51,67 @@
     <div class="space-y-4">
         <!-- Enhanced Form Headers -->
         <div class="hidden md:flex md:items-center md:justify-between font-semibold text-gray-700 bg-gray-100 rounded-md py-2">
-            <div class="md:flex-1 text-left pl-2">
+            <div class="flex-1 text-left pl-2">
                 <p>Prop</p>
             </div>
-            <div class="flex md:flex-1 justify-center gap-2">
+            <div class="flex flex-1 justify-center gap-2">
                 <p class="text-center px-4 py-2 min-w-[140px]">Side One</p>
                 <p class="text-center px-4 py-2 min-w-[140px]">Side Two</p>
             </div>
-            <div class="md:flex-none text-center pr-2">
+            <div class="flex-none text-center pr-2" style="min-width: 100px;"> <!-- Adjust the min-width as needed to align with your points input width -->
                 <p>Points</p>
             </div>
         </div>
         <!-- Form Body -->
         {#each forms as form, index (form.prop)}
-            <div class="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-                <div class="md:flex-1">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+                <div class="flex-1">
                     <p class="text-gray-700 font-semibold">{form.prop}</p>
                 </div>
-                <div class="flex gap-2 md:flex-1 justify-center">
-                    <label class={`block text-center px-4 py-2 text-sm rounded-lg cursor-pointer select-none ${selections[index] === 0 ? 'bg-indigo-500 text-white' : 'bg-gray-200 text-gray-800'} min-w-[140px] min-h-[40px]`}>
+                <div class="flex flex-1 justify-center gap-2">
+                    <label class={`block text-center px-4 py-2 text-sm rounded-lg cursor-pointer select-none ${selections[index] === 0 ? 'bg-indigo-500 text-white' : 'bg-gray-200 text-gray-800'} min-w-[140px]`}>
                         <input type="radio" class="sr-only" bind:group={selections[index]} value={0}>
                         {form.sideOne}
                     </label>
-                    <label class={`block text-center px-4 py-2 text-sm rounded-lg cursor-pointer select-none ${selections[index] === 1 ? 'bg-indigo-500 text-white' : 'bg-gray-200 text-gray-800'} min-w-[140px] min-h-[40px]`}>
+                    <label class={`block text-center px-4 py-2 text-sm rounded-lg cursor-pointer select-none ${selections[index] === 1 ? 'bg-indigo-500 text-white' : 'bg-gray-200 text-gray-800'} min-w-[140px]`}>
                         <input type="radio" class="sr-only" bind:group={selections[index]} value={1}>
                         {form.sideTwo}
                     </label>
                 </div>
-                <div class="text-gray-700 font-semibold md:flex-none">
-                    <p class="text-center">{form.points}</p>
+                <div class="flex-none text-center" style="min-width: 100px;">
+                    <span class="font-semibold text-gray-700 md:hidden">Points: </span>
+                    <span class="text-gray-700 font-semibold">{form.points}</span>
                 </div>
             </div>
         {/each}
+    
     </div>
-    <div class="flex gap-2 items-center mt-4">
-        <input type="text" bind:value={name} placeholder="Your Name" class="flex-grow px-4 py-2 text-sm rounded-lg bg-gray-200 text-gray-800 border border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50" />
-        <input type="number" bind:value={chiefsPoints} placeholder="Chiefs Points Scored" class="flex-grow px-2 py-2 text-sm rounded-lg bg-gray-200 text-gray-800 border border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50" />
-        <input type="number" bind:value={ninersPoints} placeholder="49rs Points Scored" class="flex-grow px-2 py-2 text-sm rounded-lg bg-gray-200 text-gray-800 border border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50" />
+    <div class="flex flex-wrap gap-2 items-center mt-4">
+        <input 
+            type="text" 
+            bind:value={name} 
+            placeholder="Your Name" 
+            class="flex-grow px-4 py-2 text-sm rounded-lg bg-gray-200 text-gray-800 border border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 my-2" 
+        />
+        <input 
+            type="number" 
+            bind:value={chiefsPoints} 
+            placeholder="Chiefs Points Scored" 
+            class="flex-grow px-2 py-2 text-sm rounded-lg bg-gray-200 text-gray-800 border border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 my-2" 
+        />
+        <input 
+            type="number" 
+            bind:value={ninersPoints} 
+            placeholder="49rs Points Scored" 
+            class="flex-grow px-2 py-2 text-sm rounded-lg bg-gray-200 text-gray-800 border border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 my-2" 
+        />
         <button 
             type="submit" 
-            class="px-6 py-2 rounded-lg text-sm 
-                {allAnswered ? 'bg-green-500 hover:bg-green-600 text-white focus:ring-4 focus:ring-green-500' : 'bg-gray-300 text-gray-500 cursor-not-allowed'}"
+            class="px-6 py-2 rounded-lg text-sm bg-green-500 hover:bg-green-600 text-white focus:ring-4 focus:ring-green-500 disabled:bg-gray-300 disabled:text-gray-500 cursor-pointer my-2"
             disabled={!allAnswered}
         >
         Submit
-    </button>
+        </button>
     </div>
 </form>
 
