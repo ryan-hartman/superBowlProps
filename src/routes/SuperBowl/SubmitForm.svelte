@@ -21,7 +21,6 @@
             NinersPoints: ninersPoints,
             Picks: picks
         };
-        console.log(payload)
         try {
             const response = await fetch('https://ryan-hartman.azurewebsites.net/api/SubmitPicks', {
                 method: 'POST',
@@ -37,7 +36,6 @@
 
             // Handle response data if needed
             const data = await response.json();
-            console.log('Success:', data);
             window.location.reload();
         } catch (error) {
             console.error('Error during fetch:', error);

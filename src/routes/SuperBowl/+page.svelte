@@ -13,7 +13,6 @@
 		if (response.ok) {
 			results = await response.json();
 			props = results.Props
-			console.log(results)
 		} else {
 			console.error('Failed to fetch results');
 		}

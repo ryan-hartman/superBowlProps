@@ -5,7 +5,6 @@
     export let PropPicks;
     
     let forms = PropPicks;
-    console.log(forms)
     let submittedProps = [];
     let selectedId = null;
     let selectedPropSheet = null;
@@ -14,7 +13,6 @@
       const response = await fetch('https://ryan-hartman.azurewebsites.net/api/GetPicks');
       if (response.ok) {
         submittedProps = await response.json();
-        console.log(submittedProps)
       } else {
         console.error('Failed to fetch submitted props');
       }
