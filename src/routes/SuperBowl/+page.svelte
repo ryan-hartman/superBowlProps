@@ -44,28 +44,29 @@
 		Prop Results
 	</h1>
 	<div class="props max-w-4xl mx-auto my-8">
-		<table class="w-full text-sm text-left text-gray-700 ">
-		  <thead class="text-xs text-gray-700 uppercase bg-gray-200 ">
-			<tr>
-			  <th scope="col" class="py-3 px-6">Prop</th>
-			  <th scope="col" class="py-3 px-6">Side One</th>
-			  <th scope="col" class="py-3 px-6">Side Two</th>
-			  <th scope="col" class="py-3 px-6 text-right">Points</th>
-			</tr>
-		  </thead>
-		  <tbody>
-			{#each props as prop}
-			  <tr class="{prop.winningSide === "1" ? 'bg-green-100' : 
-						  prop.winningSide === "2" ? 'bg-red-100' : 'bg-white'} hover:bg-gray-200">
-				<td class="py-4 px-6 border-b border-gray-200 ">{prop.prop}</td>
-				<td class="py-4 px-6 border-b border-gray-200 ">{prop.sideOne}</td>
-				<td class="py-4 px-6 border-b border-gray-200 ">{prop.sideTwo}</td>
-				<td class="py-4 px-6 border-b border-gray-200 text-right">{prop.points}</td>
-			  </tr>
-			{/each}
-		  </tbody>
+		<table class="w-full text-sm text-left text-gray-700">
+			<thead class="text-xs text-gray-700 uppercase bg-gray-200">
+				<tr>
+					<th scope="col" class="py-3 px-6">Prop</th>
+					<th scope="col" class="py-3 px-6">Side One</th>
+					<th scope="col" class="py-3 px-6">Side Two</th>
+					<th scope="col" class="py-3 px-6 text-right">Points</th>
+				</tr>
+			</thead>
+			<tbody>
+				{#each props as prop}
+					<tr class={`hover:bg-gray-200 ${prop.winningSide === "1" || prop.winningSide === "2" ? 'bg-gray-100' : 'bg-white'}`}>
+						<td class="py-4 px-6 border-b border-gray-200">{prop.prop}</td>
+						<td class={`py-4 px-6 border-b border-gray-200 ${prop.winningSide === "1" ? 'bg-green-200' : ''}`}>{prop.sideOne}</td>
+						<td class={`py-4 px-6 border-b border-gray-200 ${prop.winningSide === "2" ? 'bg-green-200' : ''}`}>{prop.sideTwo}</td>
+						<td class="py-4 px-6 border-b border-gray-200 text-right">{prop.points}</td>
+					</tr>
+				{/each}
+			</tbody>
 		</table>
-	  </div>
+	</div>
+	
+
 </section>
 {/if}
 <style>
