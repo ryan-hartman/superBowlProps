@@ -30,8 +30,10 @@
 
     function getSelectedValue(pick) {
         const form = forms[pick.ID];
+        console.log(pick)
+        console.log(form)
         if (form) {
-            return form.selection === 0 ? form.sideOne : form.sideTwo;
+            return pick.BetSide === 1 ? form.sideOne : form.sideTwo;
         }
         return null;
     }
