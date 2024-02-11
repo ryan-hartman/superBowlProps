@@ -9,11 +9,11 @@
 	let showForm = false;
 	let results = null;
 	onMount(async () => {
-		const response = await fetch('http://localhost:7299/api/GetProps');
+		const response = await fetch('https://ryan-hartman.azurewebsites.net/api/GetProps');
 		if (response.ok) {
 			results = await response.json();
 			props = results.Props
-			console.log(loadedProps)
+			console.log(results)
 		} else {
 			console.error('Failed to fetch results');
 		}
@@ -28,59 +28,47 @@
 
 {#if props != null}
 <section>
-	<button on:click={() => (showForm=!showForm)}> Show Pick Sheet</button>
-	{#if showForm}
-		<SubmitForm visible={showForm}/>
-	{/if}
 	<Submissions PropPicks={props}/>
-	<h1 class="text-3xl font-bold underline">
-		Props
+	<div class="flex justify-center">
+		<button 
+		  class="my-4 px-10 py-4 rounded-md text-lg bg-indigo-500 text-white hover:bg-indigo-600 transition-colors shadow-lg"
+		  on:click={() => showForm = !showForm}
+		>
+		  {showForm ? 'Hide Form' : 'Add Your Picks'}
+		</button>
+	  </div>
+	{#if showForm}
+		<SubmitForm visible={showForm} Props={props}/>
+	{/if}
+	<h1 class="text-3xl font-bold underline text-center">
+		Prop Results
 	</h1>
-	<div class="props">
-		<table class="table-auto border-8">
+	<div class="props max-w-4xl mx-auto my-8">
+		<table class="w-full text-sm text-left text-gray-700 ">
+		  <thead class="text-xs text-gray-700 uppercase bg-gray-200 ">
 			<tr>
-				<th>Prop</th>
-				<th>Side One</th>
-				<th>Side Two</th>
-				<th>Points</th>
+			  <th scope="col" class="py-3 px-6">Prop</th>
+			  <th scope="col" class="py-3 px-6">Side One</th>
+			  <th scope="col" class="py-3 px-6">Side Two</th>
+			  <th scope="col" class="py-3 px-6 text-right">Points</th>
 			</tr>
+		  </thead>
+		  <tbody>
 			{#each props as prop}
-				<tr>
-					<td class="text-left pr-4">{prop.prop}</td>
-					<td class="text-left pr-4">{prop.sideOne}</td>
-					<td class="text-left pr-4">{prop.sideTwo}</td>
-					<td class="text-right pr-4">{prop.points}</td>
-				</tr>
+			  <tr class="{prop.winningSide === "1" ? 'bg-green-100' : 
+						  prop.winningSide === "2" ? 'bg-red-100' : 'bg-white'} hover:bg-gray-200">
+				<td class="py-4 px-6 border-b border-gray-200 ">{prop.prop}</td>
+				<td class="py-4 px-6 border-b border-gray-200 ">{prop.sideOne}</td>
+				<td class="py-4 px-6 border-b border-gray-200 ">{prop.sideTwo}</td>
+				<td class="py-4 px-6 border-b border-gray-200 text-right">{prop.points}</td>
+			  </tr>
 			{/each}
+		  </tbody>
 		</table>
-	</div>
-
+	  </div>
 </section>
 {/if}
 <style>
-	/* th {
-    	text-align: left;
-		margin-right: 5%;
-		border: 1px solid black;
-	}
-	table {
-        border-collapse: collapse;
-        border: 1px solid black;
-    }
-    td {
-        border: 1px solid black;
-    } */
-	th {
-		@apply text-left pr-4;
-	}
-	section {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		flex: 0.6;
-	}
-
 	h1 {
 		width: 100%;
 	}
