@@ -55,7 +55,7 @@
 			</thead>
 			<tbody>
 				{#each props as prop}
-					<tr class={`hover:bg-gray-200 ${prop.winningSide === "1" || prop.winningSide === "2" ? 'bg-gray-100' : 'bg-white'}`}>
+					<tr class={`${prop.winningSide === "1" || prop.winningSide === "2" ? 'bg-gray-100' : 'bg-white'}`}>
 						<td class="py-4 px-6 border-b border-gray-200">{prop.prop}</td>
 						<td class={`py-4 px-6 border-b border-gray-200 ${prop.winningSide === "1" ? 'bg-green-200' : ''}`}>{prop.sideOne}</td>
 						<td class={`py-4 px-6 border-b border-gray-200 ${prop.winningSide === "2" ? 'bg-green-200' : ''}`}>{prop.sideTwo}</td>
