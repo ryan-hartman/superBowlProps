@@ -1,54 +1,38 @@
-# routify-starter
+# create-svelte
 
-Starter template for [Routify](https://github.com/sveltech/routify)
+Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
 
-### Preview
-[default template](https://example.routify.dev/)
+## Creating a project
 
-[blog template](https://blog-example.routify.dev/)
+If you're seeing this, you've probably already done this step. Congrats!
 
-### Get started
+```bash
+# create a new project in the current directory
+npm create svelte@latest
 
-#### Default starter template
-To use this starter run `npx @roxi/routify init` in an empty folder.
+# create a new project in my-app
+npm create svelte@latest my-app
+```
 
-#### Blog template
-To try the blog example, run `npx @roxi/routify init --branch blog`
+## Developing
 
-Alternatively, you can clone this repo.
+Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
-### Npm scripts
+```bash
+npm run dev
 
-| Syntax           | Description                                                                       |
-|------------------|-----------------------------------------------------------------------------------|
-| `dev`            | Development (port 5000)                                                           |
-| `dev:nollup`     | Development with crazy fast rebuilds (port 5000)                                                           |
-| `dev-dynamic`    | Development with dynamic imports                                                  |
-| `build`          | Build a bundled app with SSR + prerendering and dynamic imports                   |
-| `serve`          | Run after a build to preview. Serves SPA on 5000 and SSR on 5005                  |
-| `deploy:*`       | Deploy to netlify or now                                                          |
-| `export`         | Create static pages from content in dist folder (used by `npm run build`)         |
+# or start the server and open the app in a new browser tab
+npm run dev -- --open
+```
 
-### SSR and pre-rendering
+## Building
 
-SSR and pre-rendering are included in the default build process.
+To create a production version of your app:
 
-`npm run deploy:(now|netlify)` will deploy the app with SSR and prerendering included.
+```bash
+npm run build
+```
 
-To render async data, call the `$ready()` helper whenever your data is ready.
+You can preview the production build with `npm run preview`.
 
-If $ready() is present, rendering will be delayed till the function has been called.
-
-Otherwise it will be rendered instantly.
-
-See [src/pages/example/api/[showId].svelte](https://github.com/sveltech/routify-starter/blob/master/src/pages/example/api/%5BshowId%5D.svelte) for an example.
-
-### Production
-
-* For SPA or SSR apps please make sure that url rewrite is enabled on the server.
-* For SPA redirect to `__dynamic.html`.
-* For SSR redirect to the lambda function or express server.
-
-### Issues?
-
-File on Github! See https://github.com/sveltech/routify/issues .
+> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
