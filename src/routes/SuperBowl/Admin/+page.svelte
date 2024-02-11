@@ -50,6 +50,7 @@
         if (response.ok) {
         // Handle successful submission
         console.log('Props updated successfully');
+        alert("Succeeded. Refresh the Page.")
         } else {
         // Handle error
         console.error('Failed to update props');
