@@ -103,6 +103,33 @@
                     </div>
                     {/each}
                   </div>
+                  <div class="mb-4 p-3 rounded-lg transition-colors">
+                    <div class="flex justify-between items-center">
+                        <!-- Chiefs Score -->
+                        <div class="flex-1 flex justify-between items-center">
+                            <div class="text-gray-800 font-semibold">
+                                Chiefs Score
+                            </div>
+                            <div class="flex items-center">
+                                {prop.ChiefsPoints}
+                            </div>
+                        </div>
+                
+                        <!-- Divider (Optional) -->
+                        <div class="mx-4 h-6 border-r border-gray-400"></div>
+                
+                        <!-- 49ers Score -->
+                        <div class="flex-1 flex justify-between items-center">
+                            <div class="text-gray-800 font-semibold">
+                                49rs Score
+                            </div>
+                            <div class="flex items-center">
+                                {prop.NinersPoints}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
           {/if}
         </div>

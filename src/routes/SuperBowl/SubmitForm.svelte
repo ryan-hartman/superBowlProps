@@ -4,6 +4,8 @@
     let forms = Props
     let selections = {};
     let name = ''; // To store the name entered by the user
+    let chiefsPoints;
+    let ninersPoints;
     $: allAnswered = forms.every((form, index) => selections[index] !== undefined) && name.trim() !== '';
 
     async function handleSubmit() {
@@ -15,6 +17,8 @@
 
         const payload = {
             Name: name,
+            ChiefsPoints: chiefsPoints,
+            NinersPoints: ninersPoints,
             Picks: picks
         };
         console.log(payload)
@@ -82,6 +86,8 @@
     </div>
     <div class="flex gap-2 items-center mt-4">
         <input type="text" bind:value={name} placeholder="Your Name" class="flex-grow px-4 py-2 text-sm rounded-lg bg-gray-200 text-gray-800 border border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50" />
+        <input type="number" bind:value={chiefsPoints} placeholder="Chiefs Points Scored" class="flex-grow px-2 py-2 text-sm rounded-lg bg-gray-200 text-gray-800 border border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50" />
+        <input type="number" bind:value={ninersPoints} placeholder="49rs Points Scored" class="flex-grow px-2 py-2 text-sm rounded-lg bg-gray-200 text-gray-800 border border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50" />
         <button 
             type="submit" 
             class="px-6 py-2 rounded-lg text-sm 
