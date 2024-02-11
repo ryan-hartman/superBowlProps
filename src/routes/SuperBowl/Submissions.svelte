@@ -86,7 +86,7 @@
                          pick.IsCorrect === 2 ? 'bg-red-100 border-l-4 border-red-600' : 'bg-gray-100 border-l-4 border-gray-300'}">
                       <div class="flex justify-between items-center">
                         <div class="text-gray-800 font-semibold">
-                          {getSelectedProp(pick.ID)}:
+                          {getSelectedProp(pick.ID)}
                         </div>
                         <div class="flex items-center">
                           <span class="{pick.IsCorrect === 1 ? 'text-green-600' : 
