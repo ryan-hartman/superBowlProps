@@ -28,7 +28,7 @@
 {#if props != null}
 <section>
 	<Submissions PropPicks={props}/>
-	<!-- <div class="flex justify-center">
+	<div class="flex justify-center">
 		<button 
 		  class="my-4 px-10 py-4 rounded-md text-lg bg-indigo-500 text-white hover:bg-indigo-600 transition-colors shadow-lg"
 		  on:click={() => showForm = !showForm}
@@ -38,7 +38,7 @@
 	  </div>
 	{#if showForm}
 		<SubmitForm visible={showForm} Props={props}/>
-	{/if} -->
+	{/if}
 	<h1 class="text-3xl font-bold underline text-center">
 		Prop Results
 	</h1>
