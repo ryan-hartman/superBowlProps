@@ -119,10 +119,10 @@
                         <!-- 49ers Score -->
                         <div class="flex-1 flex justify-between items-center">
                             <div class="text-gray-800 font-semibold">
-                                49rs Score
+                                Eagles Score
                             </div>
                             <div class="flex items-center">
-                                {prop.NinersPoints}
+                                {prop.EaglesPoints}
                             </div>
                         </div>
                     </div>

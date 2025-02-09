@@ -18,7 +18,7 @@
         const payload = {
             Name: name,
             ChiefsPoints: chiefsPoints,
-            NinersPoints: ninersPoints,
+            EaglesPoints: ninersPoints,
             Picks: picks
         };
         try {
@@ -100,7 +100,7 @@
         <input 
             type="number" 
             bind:value={ninersPoints} 
-            placeholder="49rs Points Scored" 
+            placeholder="Eagles Points Scored" 
             class="flex-grow px-2 py-2 text-sm rounded-lg bg-gray-200 text-gray-800 border border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 my-2" 
         />
         <button 
