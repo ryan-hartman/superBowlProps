@@ -42,6 +42,24 @@
         return null;
     }
 
+    function getTeamPoints(propSheet, teamIndex) {
+      if (!propSheet) {
+        return null;
+      }
+
+      const directPoints = [propSheet.ChiefsPoints, propSheet.EaglesPoints].filter(
+        (value) => value !== undefined && value !== null
+      );
+      if (directPoints.length === 2) {
+        return directPoints[teamIndex];
+      }
+
+      const pointKeys = Object.keys(propSheet).filter(
+        (key) => key.endsWith('Points') && key !== 'Points'
+      );
+      return pointKeys[teamIndex] ? propSheet[pointKeys[teamIndex]] : null;
+    }
+
     function handleSubmit() {
 
     }
@@ -52,23 +70,27 @@
     }
   </script>
   
-  <div class="max-w-4xl mx-auto my-8 p-4 card-bg rounded-lg shadow-md">
-    <h2 class="text-2xl font-bold text-center text-gray-700 mb-4">Leaderboard</h2>
+  <div class="max-w-5xl mx-auto my-8 p-6 rounded-3xl border border-white/20 bg-white/80 shadow-xl shadow-slate-200/80 backdrop-blur">
+    <div class="flex flex-col gap-2 text-center">
+      <span class="text-xs font-semibold uppercase tracking-[0.3em] text-indigo-500">Live Leaderboard</span>
+      <h2 class="text-2xl font-semibold text-slate-800 sm:text-3xl">Picks & Scores</h2>
+      <p class="text-sm text-slate-500">Tap a player to reveal their prop sheet.</p>
+    </div>
     <form on:submit|preventDefault="{handleSubmit}">
       {#each submittedProps as prop (prop.id)}
-      <div class="flex flex-col mb-4 rounded-lg hover:bg-gray-100 transition-colors">
-        <div class="flex justify-between items-center p-3">
+      <div class="mt-6 flex flex-col rounded-2xl border border-slate-200 bg-white/90 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+        <div class="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between">
           <div class="flex-1">
-            <p class="font-semibold text-gray-800">{prop.Name}</p>
+            <p class="text-lg font-semibold text-slate-800">{prop.Name}</p>
           </div>
-          <div class="flex items-center justify-center flex-1">
-            <div class="text-lg font-bold text-indigo-600 mr-8">
+          <div class="flex items-center justify-center sm:flex-1">
+            <div class="rounded-full bg-indigo-50 px-4 py-2 text-sm font-semibold text-indigo-600">
               {prop.Score} Points
             </div>
           </div>
           <div class="flex-end">
             <button 
-              class="px-4 py-2 rounded-lg text-sm font-medium bg-purple-700 text-white hover:bg-purple-800 transition-colors" 
+              class="rounded-full bg-slate-900 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-white transition hover:bg-slate-800" 
               on:click={() => toggleDetails(prop.id)}
             >
               Picks
@@ -76,24 +98,24 @@
           </div>
         </div>
           {#if prop.id === selectedId}
-            <div class="p-3 bg-gray-50 rounded-b-lg">
-                <div class="p-3 bg-gray-50 rounded-b-lg">
+            <div class="rounded-b-2xl bg-slate-50 px-4 pb-4">
+                <div class="pt-2">
                     {#each prop.Picks as pick}
-                    <div class="mb-4 p-3 rounded-lg transition-colors 
-                        {pick.IsCorrect === 1 ? 'bg-green-100 border-l-4 border-green-600' : 
-                         pick.IsCorrect === 2 ? 'bg-red-100 border-l-4 border-red-600' : 'bg-gray-100 border-l-4 border-gray-300'}">
-                      <div class="flex justify-between items-center">
-                        <div class="text-gray-800 font-semibold">
+                    <div class="mb-3 rounded-xl border border-slate-200 bg-white p-3 transition-colors 
+                        {pick.IsCorrect === 1 ? 'border-emerald-200 bg-emerald-50' : 
+                         pick.IsCorrect === 2 ? 'border-rose-200 bg-rose-50' : 'border-slate-200 bg-white'}">
+                      <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                        <div class="text-sm font-semibold text-slate-800">
                           {getSelectedProp(pick.ID)}
                         </div>
-                        <div class="flex items-center">
-                          <span class="{pick.IsCorrect === 1 ? 'text-green-600' : 
-                                        pick.IsCorrect === 2 ? 'text-red-600' : 'text-gray-800'}">
+                        <div class="flex items-center gap-2">
+                          <span class="text-sm font-medium {pick.IsCorrect === 1 ? 'text-emerald-600' : 
+                                        pick.IsCorrect === 2 ? 'text-rose-600' : 'text-slate-700'}">
                             {getSelectedValue(pick)}
                           </span>
-                          <span class="ml-2 font-light text-sm
-                              {pick.IsCorrect === 1 ? 'text-green-500' : 
-                               pick.IsCorrect === 2 ? 'text-red-500' : 'text-gray-500'}">
+                          <span class="text-xs font-semibold uppercase tracking-wide
+                              {pick.IsCorrect === 1 ? 'text-emerald-500' : 
+                               pick.IsCorrect === 2 ? 'text-rose-500' : 'text-slate-500'}">
                             ({PropPicks[pick.ID].points} pts)
                           </span>
                         </div>
@@ -101,32 +123,16 @@
                     </div>
                     {/each}
                   </div>
-                  <div class="mb-4 p-3 rounded-lg transition-colors">
-                    <div class="flex justify-between items-center">
-                        <!-- Chiefs Score -->
-                        <div class="flex-1 flex justify-between items-center">
-                            <div class="text-gray-800 font-semibold">
-                                Chiefs Score
-                            </div>
-                            <div class="flex items-center">
-                                {prop.ChiefsPoints}
-                            </div>
-                        </div>
-                
-                        <!-- Divider (Optional) -->
-                        <div class="mx-4 h-6 border-r border-gray-400"></div>
-                
-                        <!-- 49ers Score -->
-                        <div class="flex-1 flex justify-between items-center">
-                            <div class="text-gray-800 font-semibold">
-                                Eagles Score
-                            </div>
-                            <div class="flex items-center">
-                                {prop.EaglesPoints}
-                            </div>
-                        </div>
+                  <div class="mt-4 grid gap-3 rounded-2xl border border-slate-200 bg-white p-4">
+                    <div class="flex items-center justify-between text-sm font-semibold text-slate-700">
+                        <span>Patriots Score</span>
+                        <span class="text-slate-900">{getTeamPoints(prop, 0)}</span>
                     </div>
-                </div>
+                    <div class="flex items-center justify-between text-sm font-semibold text-slate-700">
+                        <span>Seahawks Score</span>
+                        <span class="text-slate-900">{getTeamPoints(prop, 1)}</span>
+                    </div>
+                  </div>
                 
             </div>
           {/if}
@@ -134,11 +140,3 @@
       {/each}
     </form>
   </div>
-  
-  <style>
-    .card-bg {
-        background-color: #e2e8f0; /* A cool light gray-blue */
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* A lighter shadow for subtlety */
-        border-radius: 0.5rem; /* Consistent rounded corners */
-    }
-  </style>
