@@ -70,9 +70,9 @@
     }
   </script>
   
+
   <div class="max-w-5xl mx-auto my-8 p-6 rounded-3xl border border-white/20 bg-white/80 shadow-xl shadow-slate-200/80 backdrop-blur">
     <div class="flex flex-col gap-2 text-center">
-      <span class="text-xs font-semibold uppercase tracking-[0.3em] text-indigo-500">Live Leaderboard</span>
       <h2 class="text-2xl font-semibold text-slate-800 sm:text-3xl">Picks & Scores</h2>
       <p class="text-sm text-slate-500">Tap a player to reveal their prop sheet.</p>
     </div>
