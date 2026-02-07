@@ -1,5 +1,6 @@
 <script>
     export let Props
+    export let submissionsOpen = true;
     export let visible = false;
     let forms = Props
     let selections = {};
@@ -9,6 +10,9 @@
     $: allAnswered = forms.every((form, index) => selections[index] !== undefined) && name.trim() !== '';
 
     async function handleSubmit() {
+        if (!submissionsOpen) {
+            return;
+        }
         // Construct the payload
         const picks = Object.entries(selections).map(([index, value]) => ({
             ID: parseInt(index),
@@ -45,7 +49,7 @@
 
 </script>
 {#if visible}
-<form on:submit|preventDefault={handleSubmit} class="space-y-6">
+<form on:submit|preventDefault={handleSubmit} class={`space-y-6 ${submissionsOpen ? '' : 'opacity-70'}`}>
     <div class="rounded-2xl border border-slate-200 bg-slate-50/60 p-4 shadow-sm">
         <h3 class="text-lg font-semibold text-slate-800">Make your picks</h3>
         <p class="text-sm text-slate-500">Choose a side for every prop to enable the submit button.</p>
@@ -71,12 +75,12 @@
                     <p class="font-semibold text-slate-800">{form.prop}</p>
                 </div>
                 <div class="flex flex-1 flex-col gap-2 sm:flex-row sm:justify-center">
-                    <label class={`block min-w-[140px] cursor-pointer select-none rounded-full px-4 py-2 text-center text-sm ${selections[index] === 0 ? 'bg-indigo-500 text-white shadow-lg shadow-indigo-200' : 'bg-slate-100 text-slate-700'} `}>
-                        <input type="radio" class="sr-only" bind:group={selections[index]} value={0}>
+                    <label class={`block min-w-[140px] ${submissionsOpen ? 'cursor-pointer' : 'cursor-not-allowed'} select-none rounded-full px-4 py-2 text-center text-sm ${selections[index] === 0 ? 'bg-indigo-500 text-white shadow-lg shadow-indigo-200' : 'bg-slate-100 text-slate-700'} `}>
+                        <input type="radio" class="sr-only" bind:group={selections[index]} value={0} disabled={!submissionsOpen}>
                         {form.sideOne}
                     </label>
-                    <label class={`block min-w-[140px] cursor-pointer select-none rounded-full px-4 py-2 text-center text-sm ${selections[index] === 1 ? 'bg-indigo-500 text-white shadow-lg shadow-indigo-200' : 'bg-slate-100 text-slate-700'} `}>
-                        <input type="radio" class="sr-only" bind:group={selections[index]} value={1}>
+                    <label class={`block min-w-[140px] ${submissionsOpen ? 'cursor-pointer' : 'cursor-not-allowed'} select-none rounded-full px-4 py-2 text-center text-sm ${selections[index] === 1 ? 'bg-indigo-500 text-white shadow-lg shadow-indigo-200' : 'bg-slate-100 text-slate-700'} `}>
+                        <input type="radio" class="sr-only" bind:group={selections[index]} value={1} disabled={!submissionsOpen}>
                         {form.sideTwo}
                     </label>
                 </div>
@@ -94,23 +98,26 @@
             bind:value={name} 
             placeholder="Your Name" 
             class="flex-grow rounded-full border border-slate-200 bg-slate-100 px-4 py-2 text-sm text-slate-800 focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50" 
+            disabled={!submissionsOpen}
         />
         <input 
             type="number" 
             bind:value={chiefsPoints} 
             placeholder="Patriots Points Scored" 
             class="flex-grow rounded-full border border-slate-200 bg-slate-100 px-4 py-2 text-sm text-slate-800 focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50" 
+            disabled={!submissionsOpen}
         />
         <input 
             type="number" 
             bind:value={eaglesPoints} 
             placeholder="Seahawks Points Scored" 
             class="flex-grow rounded-full border border-slate-200 bg-slate-100 px-4 py-2 text-sm text-slate-800 focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50" 
+            disabled={!submissionsOpen}
         />
         <button 
             type="submit" 
             class="rounded-full bg-emerald-500 px-6 py-2 text-sm font-semibold text-white shadow-lg shadow-emerald-200 transition hover:bg-emerald-600 focus:ring-4 focus:ring-emerald-500 disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-400"
-            disabled={!allAnswered}
+            disabled={!allAnswered || !submissionsOpen}
         >
         Submit
         </button>
