@@ -8,6 +8,8 @@
 	let props = null;
 	let showForm = false;
 	let results = null;
+	let submittedProps = [];
+	let propStats = [];
 	const submissionsOpen = true;
 	onMount(async () => {
 		const response = await fetch('https://ryan-hartman.azurewebsites.net/api/GetProps');
@@ -17,7 +19,36 @@
 		} else {
 			console.error('Failed to fetch results');
 		}
+
+		const picksResponse = await fetch('https://ryan-hartman.azurewebsites.net/api/GetPicks');
+		if (picksResponse.ok) {
+			submittedProps = await picksResponse.json();
+		} else {
+			console.error('Failed to fetch submitted props');
+		}
 	});
+
+	function getPercentage(count, total) {
+		if (!total) return 0;
+		return Math.round((count / total) * 100);
+	}
+
+	$: if (props && props.length) {
+		const stats = props.map(() => ({ sideOne: 0, sideTwo: 0, total: 0 }));
+		for (const sheet of submittedProps) {
+			if (!sheet?.Picks) continue;
+			for (const pick of sheet.Picks) {
+				const stat = stats[pick.ID];
+				if (!stat) continue;
+				stat.total += 1;
+				if (pick.BetSide === 1) stat.sideOne += 1;
+				if (pick.BetSide === 2) stat.sideTwo += 1;
+			}
+		}
+		propStats = stats;
+	} else {
+		propStats = [];
+	}
 
 </script>
 
@@ -80,11 +111,37 @@
 							</tr>
 						</thead>
 						<tbody>
-							{#each props as prop}
+							{#each props as prop, index}
 								<tr class={`border-b border-slate-100 ${prop.winningSide === "1" || prop.winningSide === "2" ? 'bg-slate-100/80' : 'bg-white'}`}>
 									<td class="py-4 px-6 font-medium text-slate-900">{prop.prop}</td>
-									<td class={`py-4 px-6 ${prop.winningSide === "1" ? 'bg-emerald-100 text-emerald-900 font-semibold ring-1 ring-inset ring-emerald-300/70' : 'text-slate-700'}`}>{prop.sideOne}</td>
-									<td class={`py-4 px-6 ${prop.winningSide === "2" ? 'bg-emerald-100 text-emerald-900 font-semibold ring-1 ring-inset ring-emerald-300/70' : 'text-slate-700'}`}>{prop.sideTwo}</td>
+									<td class={`py-4 px-6 ${prop.winningSide === "1" ? 'bg-emerald-100 text-emerald-900 font-semibold ring-1 ring-inset ring-emerald-300/70' : 'text-slate-700'}`}>
+										<div>{prop.sideOne}</div>
+										{#if !submissionsOpen && propStats.length}
+											<div class="mt-1 text-xs font-medium text-slate-500 whitespace-nowrap">
+												{getPercentage(propStats[index]?.sideOne, propStats[index]?.total)}% Picked
+											</div>
+											<div class="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-slate-200">
+												<div
+													class="h-1.5 rounded-full bg-gradient-to-r from-emerald-300 to-emerald-500"
+													style={`width: ${getPercentage(propStats[index]?.sideOne, propStats[index]?.total)}%`}
+												></div>
+											</div>
+										{/if}
+									</td>
+									<td class={`py-4 px-6 ${prop.winningSide === "2" ? 'bg-emerald-100 text-emerald-900 font-semibold ring-1 ring-inset ring-emerald-300/70' : 'text-slate-700'}`}>
+										<div>{prop.sideTwo}</div>
+										{#if !submissionsOpen && propStats.length}
+											<div class="mt-1 text-xs font-medium text-slate-500 whitespace-nowrap">
+												{getPercentage(propStats[index]?.sideTwo, propStats[index]?.total)}% Picked
+											</div>
+											<div class="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-slate-200">
+												<div
+													class="h-1.5 rounded-full bg-gradient-to-r from-indigo-300 to-indigo-500"
+													style={`width: ${getPercentage(propStats[index]?.sideTwo, propStats[index]?.total)}%`}
+												></div>
+											</div>
+										{/if}
+									</td>
 									<td class="py-4 px-6 text-right font-semibold text-slate-900">{prop.points}</td>
 								</tr>
 							{/each}
@@ -92,17 +149,43 @@
 					</table>
 				</div>
 				<div class="mt-4 grid gap-4 md:hidden">
-					{#each props as prop}
+					{#each props as prop, index}
 						<div class={`rounded-2xl border p-4 shadow-sm ${prop.winningSide === "1" || prop.winningSide === "2" ? 'border-slate-200 bg-slate-50' : 'border-slate-200 bg-white'}`}>
 							<div class="text-sm font-semibold text-slate-900">{prop.prop}</div>
 							<div class="mt-4 grid gap-3 text-sm">
-								<div class={`flex items-center justify-between rounded-lg px-3 py-2 ${prop.winningSide === "1" ? 'bg-emerald-200 text-emerald-900 ring-1 ring-inset ring-emerald-300/80' : 'bg-slate-100 text-slate-700'}`}>
-									<span class="font-medium">Side One</span>
-									<span>{prop.sideOne}</span>
+								<div class={`rounded-lg px-3 py-2 ${prop.winningSide === "1" ? 'bg-emerald-200 text-emerald-900 ring-1 ring-inset ring-emerald-300/80' : 'bg-slate-100 text-slate-700'}`}>
+									<div class="flex items-center justify-between">
+										<span class="font-medium">Side One</span>
+										<span>{prop.sideOne}</span>
+									</div>
+									{#if !submissionsOpen && propStats.length}
+										<div class="mt-1 text-[11px] font-semibold text-slate-600">
+											{getPercentage(propStats[index]?.sideOne, propStats[index]?.total)}% Picked
+										</div>
+										<div class="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-white/70">
+											<div
+												class="h-1.5 rounded-full bg-gradient-to-r from-emerald-300 to-emerald-500"
+												style={`width: ${getPercentage(propStats[index]?.sideOne, propStats[index]?.total)}%`}
+											></div>
+										</div>
+									{/if}
 								</div>
-								<div class={`flex items-center justify-between rounded-lg px-3 py-2 ${prop.winningSide === "2" ? 'bg-emerald-200 text-emerald-900 ring-1 ring-inset ring-emerald-300/80' : 'bg-slate-100 text-slate-700'}`}>
-									<span class="font-medium">Side Two</span>
-									<span>{prop.sideTwo}</span>
+								<div class={`rounded-lg px-3 py-2 ${prop.winningSide === "2" ? 'bg-emerald-200 text-emerald-900 ring-1 ring-inset ring-emerald-300/80' : 'bg-slate-100 text-slate-700'}`}>
+									<div class="flex items-center justify-between">
+										<span class="font-medium">Side Two</span>
+										<span>{prop.sideTwo}</span>
+									</div>
+									{#if !submissionsOpen && propStats.length}
+										<div class="mt-1 text-[11px] font-semibold text-slate-600">
+											{getPercentage(propStats[index]?.sideTwo, propStats[index]?.total)}% Picked
+										</div>
+										<div class="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-white/70">
+											<div
+												class="h-1.5 rounded-full bg-gradient-to-r from-indigo-300 to-indigo-500"
+												style={`width: ${getPercentage(propStats[index]?.sideTwo, propStats[index]?.total)}%`}
+											></div>
+										</div>
+									{/if}
 								</div>
 								<div class="flex items-center justify-between text-xs font-semibold uppercase tracking-wide text-slate-500">
 									<span>Points</span>
