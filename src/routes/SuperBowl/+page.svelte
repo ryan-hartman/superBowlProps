@@ -68,7 +68,6 @@
 			<section class="rounded-3xl border border-slate-200 bg-white p-5 shadow-lg shadow-slate-200/60">
 				<div class="flex items-center justify-between">
 					<h2 id="results" class="text-lg font-semibold text-slate-900">Prop Results</h2>
-					<p class="text-xs text-slate-500">Tap a prop to see the latest winning side.</p>
 				</div>
 				<div class="mt-4 hidden overflow-hidden rounded-2xl border border-slate-200 bg-white md:block">
 					<table class="w-full text-sm text-left text-slate-700">
