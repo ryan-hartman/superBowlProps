@@ -116,7 +116,7 @@
 									<td class="py-4 px-6 font-medium text-slate-900">{prop.prop}</td>
 									<td class={`py-4 px-6 ${prop.winningSide === "1" ? 'bg-emerald-100 text-emerald-900 font-semibold ring-1 ring-inset ring-emerald-300/70' : 'text-slate-700'}`}>
 										<div>{prop.sideOne}</div>
-										{#if !submissionsOpen && propStats.length}
+										{#if propStats.length}
 											<div class="mt-1 text-xs font-medium text-slate-500 whitespace-nowrap">
 												{getPercentage(propStats[index]?.sideOne, propStats[index]?.total)}% Picked
 											</div>
@@ -130,7 +130,7 @@
 									</td>
 									<td class={`py-4 px-6 ${prop.winningSide === "2" ? 'bg-emerald-100 text-emerald-900 font-semibold ring-1 ring-inset ring-emerald-300/70' : 'text-slate-700'}`}>
 										<div>{prop.sideTwo}</div>
-										{#if !submissionsOpen && propStats.length}
+										{#if propStats.length}
 											<div class="mt-1 text-xs font-medium text-slate-500 whitespace-nowrap">
 												{getPercentage(propStats[index]?.sideTwo, propStats[index]?.total)}% Picked
 											</div>
@@ -158,7 +158,7 @@
 										<span class="font-medium">Side One</span>
 										<span>{prop.sideOne}</span>
 									</div>
-									{#if !submissionsOpen && propStats.length}
+									{#if propStats.length}
 										<div class="mt-1 text-[11px] font-semibold text-slate-600">
 											{getPercentage(propStats[index]?.sideOne, propStats[index]?.total)}% Picked
 										</div>
@@ -175,7 +175,7 @@
 										<span class="font-medium">Side Two</span>
 										<span>{prop.sideTwo}</span>
 									</div>
-									{#if !submissionsOpen && propStats.length}
+									{#if propStats.length}
 										<div class="mt-1 text-[11px] font-semibold text-slate-600">
 											{getPercentage(propStats[index]?.sideTwo, propStats[index]?.total)}% Picked
 										</div>
