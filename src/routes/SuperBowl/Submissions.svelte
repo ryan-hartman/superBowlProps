@@ -17,6 +17,7 @@
         console.error('Failed to fetch submitted props');
       }
     });
+
   
     function toggleModal(propSheet) {
         selectedPropSheet = propSheet;

@@ -28,11 +28,13 @@
 declare module '$env/static/private' {
 	export const LESSOPEN: string;
 	export const USER: string;
+	export const PHP_INI_SCAN_DIR: string;
 	export const npm_config_user_agent: string;
 	export const npm_node_execpath: string;
 	export const SHLVL: string;
 	export const npm_config_noproxy: string;
 	export const HOME: string;
+	export const OLDPWD: string;
 	export const NVM_BIN: string;
 	export const npm_package_json: string;
 	export const NVM_INC: string;
@@ -112,11 +114,13 @@ declare module '$env/dynamic/private' {
 	export const env: {
 		LESSOPEN: string;
 		USER: string;
+		PHP_INI_SCAN_DIR: string;
 		npm_config_user_agent: string;
 		npm_node_execpath: string;
 		SHLVL: string;
 		npm_config_noproxy: string;
 		HOME: string;
+		OLDPWD: string;
 		NVM_BIN: string;
 		npm_package_json: string;
 		NVM_INC: string;
