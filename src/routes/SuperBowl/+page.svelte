@@ -10,7 +10,7 @@
 	let results = null;
 	let submittedProps = [];
 	let propStats = [];
-	const submissionsOpen = true;
+	const submissionsOpen = false;
 	onMount(async () => {
 		const response = await fetch('https://ryan-hartman.azurewebsites.net/api/GetProps');
 		if (response.ok) {
